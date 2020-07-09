@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-const request = require('request')
 const chalk = require('chalk')
+const templateList = require('../template_list')
 
 /**
  * Padding.
@@ -12,28 +12,11 @@ process.on('exit', () => {
   console.log()
 })
 
-/**
- * List repos.
- */
-
-request({
-  url: 'https://github.com.cn/jsl/template/jsl-template-list/raw/master/%20jsl-template-list.json',
-  headers: {
-    'User-Agent': 'jsl_cli'
-  }
-}, (err, res, body) => {
-  if (err) console.log(err)
-  const requestBody = JSON.parse(body)
-  if (Array.isArray(requestBody)) {
-    console.log(' templates list:')
-    console.log()
-    requestBody.forEach(repo => {
-      console.log(
-        '  ' + chalk.green('~') +
-        '  ' + chalk.blue(repo.name) +
-        ' - ' + repo.description)
-    })
-  } else {
-    console.error(requestBody.message)
-  }
+console.log(' templates list:')
+console.log()
+templateList.forEach(repo => {
+  console.log(
+    '  ' + chalk.green('~') +
+    '  ' + chalk.blue(repo.name) +
+    ' - ' + repo.description)
 })

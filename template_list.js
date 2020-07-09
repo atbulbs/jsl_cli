@@ -1,4 +1,4 @@
-[
+module.exports = [
   {
     "name":"phaser",
     "url":"direct:https://github.com/atbulbs/all_in_typescript.git",

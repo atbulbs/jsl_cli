@@ -1,6 +1,6 @@
 {
   "name": "jsl_cli",
-  "version": "1.0.5",
+  "version": "0.0.1",
   "description": "前端构建工具",
   "repository": {
     "type": "git",
@@ -10,8 +10,8 @@
   "license": "MIT",
   "bin": {
     "jsl": "bin/jsl",
-    "reate": "bin/create",
-    "ls": "bin/ls"
+    "jsl-create": "bin/create",
+    "jsl-ls": "bin/ls"
   },
   "dependencies": {
     "async": "^2.6.1",
