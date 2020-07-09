@@ -17,7 +17,7 @@ process.on('exit', () => {
  */
 
 request({
-  url: 'https://github.com.cn/lc/template/lc-template-list/raw/master/%20lc-template-list.json',
+  url: 'https://github.com.cn/jsl/template/jsl-template-list/raw/master/%20jsl-template-list.json',
   headers: {
     'User-Agent': 'jsl_cli'
   }

@@ -4,7 +4,7 @@
   "description": "前端构建工具",
   "repository": {
     "type": "git",
-    "url": "ssh://git@code.taobao.com.cn:3590/lc/npm/jsl_cli.git"
+    "url": "ssh://git@code.taobao.com.cn:3590/npm/jsl_cli.git"
   },
   "author": "atbulbs@gmail.com",
   "license": "MIT",
