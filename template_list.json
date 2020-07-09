@@ -1,0 +1,7 @@
+[
+  {
+    "name":"phaser",
+    "url":"direct:https://github.com/atbulbs/all_in_typescript.git",
+    "description":"a phaser template"
+  }
+]
