@@ -80,7 +80,7 @@ function downloadAndGenerate(tmpRepo,tmpName,tmpUrl){
       spinner.fail(chalk.red('download template unsuccessfully'))
       console.log(err)
     }else{
-      spinner.succeed(chalk.green('download template successfully(项目在发布测试阶段时需要手动的去替换yaml文件中的token值,找对应的权限负责人申请该模块的项目token)'))
+      spinner.succeed(chalk.green('download template successfully'))
       generate(tmpDest,tmpName,tmpUrl)
     }
   })
