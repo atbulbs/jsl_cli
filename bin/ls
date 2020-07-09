@@ -1,0 +1,39 @@
+#!/usr/bin/env node
+
+const request = require('request')
+const chalk = require('chalk')
+
+/**
+ * Padding.
+ */
+
+console.log()
+process.on('exit', () => {
+  console.log()
+})
+
+/**
+ * List repos.
+ */
+
+request({
+  url: 'https://github.com.cn/lc/template/lc-template-list/raw/master/%20lc-template-list.json',
+  headers: {
+    'User-Agent': 'jsl_cli'
+  }
+}, (err, res, body) => {
+  if (err) console.log(err)
+  const requestBody = JSON.parse(body)
+  if (Array.isArray(requestBody)) {
+    console.log(' templates list:')
+    console.log()
+    requestBody.forEach(repo => {
+      console.log(
+        '  ' + chalk.green('~') +
+        '  ' + chalk.blue(repo.name) +
+        ' - ' + repo.description)
+    })
+  } else {
+    console.error(requestBody.message)
+  }
+})
