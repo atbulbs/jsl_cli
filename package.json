@@ -4,14 +4,15 @@
   "description": "前端构建工具",
   "repository": {
     "type": "git",
-    "url": "ssh://git@code.taobao.com.cn:3590/npm/jsl_cli.git"
+    "url": "https://github.com/atbulbs/jsl_cli.git"
   },
   "author": "atbulbs@gmail.com",
   "license": "MIT",
   "bin": {
     "jsl": "bin/jsl",
     "jsl-create": "bin/create",
-    "jsl-ls": "bin/ls"
+    "jsl-ls": "bin/ls",
+    "jsl-create-phaser-app": "bin/create_phaser_app"
   },
   "dependencies": {
     "async": "^2.6.1",
