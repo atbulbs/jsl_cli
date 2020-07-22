@@ -96,36 +96,41 @@ const choices = templateList.map(template => {
   }
 })
 
-inquirer.prompt([{
-  type: 'list',
-  name: 'template',
-  choices,
-  message: 'Choose template you want'
-}]).then(answer => {
-  //模板名称
-  const tmpName = answer.template
-  //远程模板地址
-  const tmpUrl = templateList.find(template => template.name === tmpName).url
-  const tmpDest = path.join(tmpRepo, tmpName)
-  if (exists(tmpDest)) {
-    inquirer.prompt([{
-      type: 'confirm',
-      name: 'override',
-      message: 'The template exists.Override?'
-    }]).then(answer => {
-      if (answer.override) {
-        rm(tmpDest)
-        downloadAndGenerate(tmpRepo, tmpName, tmpUrl)
-      } else {/**
-       * @description 生成项目
-       */
-        generateProject(tmpDest, tmpName, tmpUrl)
-      }
-    });
-  } else {
-    downloadAndGenerate(tmpRepo, tmpName, tmpUrl)
-  }
-})
+/**
+ * @description 处理输入
+ */
+inquirer
+  .prompt([{
+    type: 'list',
+    name: 'template',
+    choices,
+    message: 'Choose template you want'
+  }])
+  .then(answer => {
+    //模板名称
+    const tmpName = answer.template
+    //远程模板地址
+    const tmpUrl = templateList.find(template => template.name === tmpName).url
+    const tmpDest = path.join(tmpRepo, tmpName)
+    if (exists(tmpDest)) {
+      inquirer.prompt([{
+        type: 'confirm',
+        name: 'override',
+        message: 'The template exists.Override?'
+      }]).then(answer => {
+        if (answer.override) {
+          rm(tmpDest)
+          downloadAndGenerate(tmpRepo, tmpName, tmpUrl)
+        } else {/**
+        * @description 生成项目
+        */
+          generateProject(tmpDest, tmpName, tmpUrl)
+        }
+      });
+    } else {
+      downloadAndGenerate(tmpRepo, tmpName, tmpUrl)
+    }
+  })
 
 /**
  *

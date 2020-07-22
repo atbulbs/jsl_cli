@@ -10,8 +10,7 @@
   "license": "MIT",
   "bin": {
     "jsl": "bin/jsl",
-    "jsl-create": "bin/create",
-    "jsl-ls": "bin/ls"
+    "jsl-create": "bin/create"
   },
   "dependencies": {
     "async": "^2.6.1",
