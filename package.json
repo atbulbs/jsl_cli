@@ -1,5 +1,5 @@
 {
-  "name": "jsl_cli",
+  "name": "jsl_kit",
   "version": "0.0.1",
   "description": "前端构建工具",
   "repository": {
@@ -11,8 +11,7 @@
   "bin": {
     "jsl": "bin/jsl",
     "jsl-create": "bin/create",
-    "jsl-ls": "bin/ls",
-    "jsl-create-phaser-app": "bin/create_phaser_app"
+    "jsl-ls": "bin/ls"
   },
   "dependencies": {
     "async": "^2.6.1",

@@ -8,8 +8,83 @@ const download = require('download-git-repo')
 const chalk = require('chalk')
 const ora = require('ora')
 const rm = require('rimraf').sync
-const generate = require('../lib/generate-project')
-const templateList = require('../template_list')
+const Metalsmith = require('metalsmith')
+const inquirer = require('inquirer')
+const chalk = require('chalk')
+const path = require('path')
+const ora = require('ora')
+const exists = require('fs').existsSync
+const rm = require('rimraf').sync
+
+/**
+ * @description 获取绝对路径
+ */
+function getAbsolutePath (localPath) {
+  if(typeof localPath === 'string'){
+    return path.isAbsolute(localPath)?localPath:path.join(process.cwd(),localPath)
+  }
+  return localPath;
+}
+
+/**
+ * @description 生成项目
+ */
+function generateProject (tmpPath, tmpName, tmpUrl) {
+  const metalsmith = Metalsmith(tmpPath)
+  inquirer.prompt([{
+      type: 'input',
+      name: 'name',
+      message: 'The name of project',
+      default: 'my_app'
+    },
+    {
+      type: 'input',
+      name: 'destination',
+      message: 'The destination of project',
+      default: process.cwd()
+    }
+  ]).then(answer => {
+    //项目生成路径
+    const destination = path.join(getAbsolutePath(answer.destination), answer.name)
+    if (exists(destination)) {
+      rm(destination)
+    }
+    const spinner = ora('generating...').start()
+    //加入新的全局变量
+    Object.assign(metalsmith.metadata(), answer)
+    spinner.start()
+    metalsmith
+      .source('.')
+      .destination(destination)
+      .clean(true)
+      .build(function (err, files) {
+        console.log()
+        spinner.stop()
+        if (err) {
+          console.warn('err', err)
+          throw err
+        }
+        console.log()
+        console.log(chalk.green('Build Successfully'))
+        console.log()
+        console.log((`${chalk.green('Please cd')} ${destination} ${chalk.green('to start your coding')}`))
+        console.log()
+      })
+  })
+}
+
+const templateList = [
+  {
+    "name":"phaser",
+    "url":"direct:https://github.com/atbulbs/phaser_template.git",
+    "description":"a phaser template"
+  },
+  {
+    "name":"vue",
+    "url":"direct:https://github.com/atbulbs/all_in_typescript.git",
+    "description":"a vue template"
+  },
+]
 
 //本地模板存放仓库
 const tmpRepo = path.resolve(userHome, '.jsl-templates')
@@ -20,6 +95,7 @@ const choices = templateList.map(template => {
     value: template.name
   }
 })
+
 inquirer.prompt([{
   type: 'list',
   name: 'template',
@@ -40,8 +116,10 @@ inquirer.prompt([{
       if (answer.override) {
         rm(tmpDest)
         downloadAndGenerate(tmpRepo, tmpName, tmpUrl)
-      } else {
-        generate(tmpDest, tmpName, tmpUrl)
+      } else {/**
+       * @description 生成项目
+       */
+        generateProject(tmpDest, tmpName, tmpUrl)
       }
     });
   } else {
@@ -58,7 +136,7 @@ inquirer.prompt([{
 function downloadAndGenerate(tmpRepo, tmpName, tmpUrl) {
   const spinner = ora('downloading template...')
   const tmpDest = path.join(tmpRepo, tmpName)
-  // spinner.start()
+  spinner.start()
   download(`${tmpUrl}`, tmpDest, {
     clone: true
   }, (err) => {
@@ -67,8 +145,10 @@ function downloadAndGenerate(tmpRepo, tmpName, tmpUrl) {
       spinner.fail(chalk.red('download template unsuccessfully'))
       console.log(err)
     } else {
-      spinner.succeed(chalk.green('download template successfully'))
-      generate(tmpDest, tmpName, tmpUrl)
+      spinner.succeed/**
+       * @description 生成项目
+       */(chalk.green('download template successfully'))
+      generateProject(tmpDest, tmpName, tmpUrl)
     }
   })
 }

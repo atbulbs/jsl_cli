@@ -3,5 +3,5 @@ require('commander')
   .version(require('../package').version)
   .usage('<command> [options]')
   .command('create', 'generate project')
-  .command('ls', 'project template')
+  .command('ls', 'template list')
   .parse(process.argv);

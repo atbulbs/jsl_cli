@@ -1,0 +1,44 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "target": "es2015",
+    "module": "ES2015",
+    "lib": [
+      "es2015",
+      "es2016",
+      "es2017",
+      "dom"
+    ],
+    "strict": false,
+    "sourceMap": true,
+    "declaration": true,
+    "declarationDir": "dist/types",
+    "typeRoots": [
+      "node_modules/@types",
+      "node_modules/phaser/types"
+    ],
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "outDir": "dist/lib",
+    "baseUrl": "./",
+    "paths": {
+      "@root/*": ["./*"],
+      "@/*": ["src/*"],
+      "@test/*": ["test/*"]
+    }
+  },
+  "include": [
+    "src",
+    "src/types",
+    "node_modules/phaser/types/phaser.d.ts",
+    "node_modules/phaser/types/spine-canvas.d.ts",
+  ],
+  // 设置 typedoc 参数
+  "typedocOptions": {
+    "inputFiles": ["src"],
+    "out": "guides",
+    "mode": "file",
+    "theme": "default"
+  }
+}
