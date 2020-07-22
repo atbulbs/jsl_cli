@@ -7,6 +7,6 @@ download(
     clone: true,
   },
   err => {
-    console.warn('err', err)
+    console.warn(err ? err : 'success!')
   }
 )
