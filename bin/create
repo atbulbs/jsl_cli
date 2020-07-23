@@ -1,12 +1,57 @@
 #!/usr/bin/env node
+
+const path=require('path')
+const exists = require('fs').existsSync
+const inquirer = require('inquirer')
 const download = require('download-git-repo')
-download(
-  'direct:https://github.com/atbulbs/phaser_template.git',
-  'my_app',
-  {
-    clone: true,
-  },
-  err => {
-    console.warn(err ? err : 'success!')
-  }
-)
+const rm = require('rimraf').sync
+
+function generateProject (destination) {
+  download(
+    'direct:https://github.com/atbulbs/phaser_template.git',
+    destination,
+    {
+      clone: true,
+    },
+    err => {
+      console.warn(err ? err : 'success!')
+    }
+  )
+}
+
+inquirer
+  .prompt([
+    {
+      type: 'input',
+      name: 'appName',
+      message: 'The name of project',
+      default: 'my_app',
+    },
+    {
+      type: 'input',
+      name: 'destination',
+      message: 'The destination of project',
+      default: process.cwd()
+    }
+  ])
+  .then(answer => {
+    const localPath = answer.destination
+    //项目生成路径
+    const destination = path.join(path.isAbsolute(localPath) ? localPath : path.join(process.cwd(), localPath), answer.appName)
+    if (exists(destination)) {
+      inquirer.prompt([
+        {
+          type:'confirm',
+          name:'override',
+          message:'The project exists. override it?',
+        }
+      ]).then(answer=>{
+        if (answer.override) {
+          rm(destination)
+          generateProject(destination)
+        }
+      })
+    } else {
+      generateProject(destination)
+    }
+})
