@@ -6,9 +6,24 @@ const inquirer = require('inquirer')
 const download = require('download-git-repo')
 const rm = require('rimraf').sync
 
-function generateProject (destination) {
+const templateList = [
+  {
+    name: 'a vue template',
+    url: 'direct:https://github.com/atbulbs/vue_template.git',
+    description: 'for h5 project, using vw adjust, build all in typscript includes webpack configuration',
+    framework: 'vue',
+  },
+  {
+    name: 'a phaser template',
+    url: 'direct:https://github.com/atbulbs/phaser_template.git',
+    description: 'build all in typscript includes webpack configuration',
+    framework: 'phaser',
+  }
+]
+
+function generateProject (destination, url) {
   download(
-    'direct:https://github.com/atbulbs/phaser_template.git',
+    url,
     destination,
     {
       clone: true,
@@ -19,39 +34,59 @@ function generateProject (destination) {
   )
 }
 
+const choices = templateList.map(template => ({
+  name: `${ template.name }, ${ template.description }`,
+  value: template.name,
+}))
+
 inquirer
   .prompt([
     {
-      type: 'input',
-      name: 'appName',
-      message: 'The name of project',
-      default: 'my_app',
-    },
-    {
-      type: 'input',
-      name: 'destination',
-      message: 'The destination of project',
-      default: process.cwd()
+      type:'list',
+      name:'templateName',
+      choices,
+      message:'Choose a template you want to build'
     }
-  ])
-  .then(answer => {
-    const localPath = answer.destination
-    //项目生成路径
-    const destination = path.join(path.isAbsolute(localPath) ? localPath : path.join(process.cwd(), localPath), answer.appName)
-    if (exists(destination)) {
-      inquirer.prompt([
+  ]).then(answer => {
+    const template = templateList.find(template => template.name === answer.templateName)
+    const templateUrl = template.url
+    const templateFramework = template.framework
+    console.warn('templateUrl', templateUrl)
+    inquirer
+      .prompt([
         {
-          type:'confirm',
-          name:'override',
-          message:'The project exists. override it?',
+          type: 'input',
+          name: 'appName',
+          message: 'The name of project',
+          default: `my_${ templateFramework }_app`,
+        },
+        {
+          type: 'input',
+          name: 'destination',
+          message: 'The destination of project',
+          default: process.cwd()
         }
-      ]).then(answer=>{
-        if (answer.override) {
-          rm(destination)
-          generateProject(destination)
+      ])
+      .then(answer => {
+        const localPath = answer.destination
+        //项目生成路径
+        const destination = path.join(path.isAbsolute(localPath) ? localPath : path.join(process.cwd(), localPath), answer.appName)
+        if (exists(destination)) {
+          inquirer.prompt([
+            {
+              type:'confirm',
+              name:'override',
+              message:'The project exists. override it?',
+            }
+          ]).then(answer=>{
+            if (answer.override) {
+              rm(destination)
+              generateProject(destination, templateUrl)
+            }
+          })
+        } else {
+          generateProject(destination, templateUrl)
         }
-      })
-    } else {
-      generateProject(destination)
-    }
-})
+    })
+  })
+
