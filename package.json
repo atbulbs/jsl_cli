@@ -1,5 +1,8 @@
 {
   "name": "jsl_kit",
+  "main": "lib/create.umd.js",
+  "module": "lib/create.es.js",
+  "types": "lib/types/create.d.ts",
   "version": "0.0.5",
   "description": "a jsl dev kit, for lib vue react phaser project",
   "repository": {
@@ -12,7 +15,55 @@
     "jsl": "bin/jsl",
     "jsl-create": "bin/create"
   },
+  "scripts": {
+    "build": "cross-env NODE_ENV=production rollup -c ./rollup.config.ts",
+    "start": "cross-env NODE_ENV=development rollup -c ./rollup.config.ts --watch"
+  },
   "dependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-transform-runtime": "^7.6.2",
+    "@babel/preset-env": "^7.6.3",
+    "@babel/preset-react": "^7.0.0",
+    "@types/jest": "^24.0.23",
+    "@types/webpack": "^4.4.32",
+    "@types/webpack-dev-server": "^3.1.6",
+    "awesome-typescript-loader": "^5.2.1",
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^10.0.3",
+    "babel-helper-vue-jsx-merge-props": "^2.0.3",
+    "babel-loader": "^8.0.6",
+    "babel-plugin-syntax-jsx": "^6.18.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-plugin-transform-vue-jsx": "^3.7.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-2": "^6.24.1",
+    "compression-webpack-plugin": "^3.0.0",
+    "cross-env": "^5.2.0",
+    "friendly-errors-webpack-plugin": "^1.7.0",
+    "html-webpack-plugin": "^3.2.0",
+    "istanbul-instrumenter-loader": "^3.0.1",
+    "jest": "^24.9.0",
+    "npm": "^6.11.2",
+    "portfinder": "^1.0.23",
+    "raw-loader": "^3.1.0",
+    "rollup": "^1.27.2",
+    "rollup-plugin-sourcemaps": "^0.4.2",
+    "rollup-plugin-typescript2": "^0.25.2",
+    "ts-jest": "^24.1.0",
+    "ts-loader": "^5.4.5",
+    "ts-node": "^8.2.0",
+    "tsconfig-paths": "^3.8.0",
+    "tslint": "^5.19.0",
+    "tslint-config-standard": "^8.0.1",
+    "tslint-loader": "^3.5.4",
+    "typescript": "^3.5.3",
+    "webpack": "^4.39.3",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.4.1",
+    "@babel/runtime": "^7.6.3",
+    "babel-cli": "^6.26.0",
+    "rollup-plugin-json": "^4.0.0",
+    "webpack-merge": "^4.1.4",
     "async": "^2.6.1",
     "chalk": "^2.4.1",
     "commander": "^2.16.0",
@@ -33,6 +84,8 @@
     "lib"
   ],
   "devDependencies": {
+    "@types/node": "^10.17.28",
+    "request-promise-any": "^1.0.9",
     "sync-request": "^6.0.0"
   }
 }

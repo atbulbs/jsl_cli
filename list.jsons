@@ -1,0 +1,14 @@
+[
+  {
+    "name": "a vue template",
+    "url": "direct:https://github.com/atbulbs/vue_template.git",
+    "description": "for h5 project, using vw adjust, build all in typscript includes webpack configuration",
+    "framework": "vue"
+  },
+  {
+    "name": "a phaser template",
+    "url": "direct:https://github.com/atbulbs/phaser_template.git",
+    "description": "build all in typscript includes webpack configuration",
+    "framework": "phaser"
+  }
+]
