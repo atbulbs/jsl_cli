@@ -10,6 +10,6 @@ script:
 - npm run build
 deploy:
   provider: npm
-  email: atbulbs@gmail.com
+  email: 286630571@qq.com
   api_key:
     secure: WRUohbtUKhSr7sPBmChqrrJpbVj6VEiVpt8dtAHloozSGZ+Zv3RQxF355q4Mpg/WmX6slefareOMEkzy0LTDWZ6V7T2WfHhBJeMIvTruQSHfFt4vrlKdBFsTZJ4m+kphzijpTpfNAi9ckshn55QhSTf0fUAcD7l5ECmohsuLeqlds8VUC8aa3i+FXmMZX917uaVLMWkktBZ5SovZak/eEpSyfrA7+n+7aFJgKyl70hP7YT18BKFvX3Lr+PMiX0RL8EO4qcId0dVn2Iihjwg1xN0/aU1Hvq/JkEEJdKvAgG5XSLaDRCoOE6VTDPvWis4dBUg+G1yDzb0MGf5QQWxYzInIihgU+QOlVQTshj7tJSyLmUXTSJHU5IMe/cTWUj7FFzr8dNk/ZyT6tqvIiB73gC7UDnxTEAqR3vBsTc62zb/Y4xcSDv/+BbEVJM4rePXeC+O+sYQNH85JsNqb+j7MFjkQ51rzc/f0r6zxAx5Fp0d0MsCmnKnLF9ImGE/DGlNEm9895XYN9qz08TMV+TNG70rskO9PRdQb/dXr7ySmHg27GoyKAM2LGh++5tNCuLk5iwTQM5DLo2VZiHgVpTaah76jlLzaywHX2hU/DdeVwi1OXswmsqYIog+zqsROmYvnx5daZrh/uiw16+P74iUer7yi1k+inA4n03BMn5WJfVo=
