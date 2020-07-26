@@ -6,3 +6,5 @@ cache:
   - node_modules # 缓存node_modules避免重复install
 env:
   - CI=true
+script:
+  - npm run build
