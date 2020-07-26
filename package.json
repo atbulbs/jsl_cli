@@ -3,7 +3,7 @@
   "main": "lib/create.umd.js",
   "module": "lib/create.es.js",
   "types": "lib/types/create.d.ts",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "a jsl dev kit, for lib, vue, react, phaser project",
   "repository": {
     "type": "git",
