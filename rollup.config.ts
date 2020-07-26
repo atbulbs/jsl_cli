@@ -1,8 +1,8 @@
 import typescript from 'rollup-plugin-typescript2'
 import sourceMaps from 'rollup-plugin-sourcemaps'
 import JsonPlugin from 'rollup-plugin-json'
-import commonjs from 'rollup-plugin-commonjs'
 import nodeResolve from 'rollup-plugin-node-resolve'
+import commonjs from 'rollup-plugin-commonjs'
 
 const json = require('./package.json')
 
@@ -13,6 +13,12 @@ export default {
       file: json.main,
       format: 'umd',
       name: 'main',
+      sourcemap: true,
+      minify: true
+    },
+    {
+      file: json.main,
+      format: 'cjs',
       sourcemap: true,
       minify: true
     },
@@ -34,6 +40,7 @@ export default {
     nodeResolve(),
     commonjs({
       include: [
+        // /src/,
         /node_modules\/chalk/,
         /node_modules\/inquirer/,
         /node_modules\/request-promise-any/,

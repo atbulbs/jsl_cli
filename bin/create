@@ -1,3 +1,128 @@
 #!/usr/bin/env node
+const path=require('path')
+const exists = require('fs').existsSync
+const inquirer = require('inquirer')
+const download = require('download-git-repo')
+const rm = require('rimraf').sync
+const request = require('request')
+const Metalsmith = require('metalsmith')
+const Handlebars = require('handlebars')
+const ora = require('ora')
+const chalk = new require('chalk').constructor({ enabled: true })
+const warn = str => console.log(chalk.red(str))
+const info = str => console.log(chalk.blue(str))
 
-require('../lib/create.umd.js')
+const templateListJsonUrl = 'https://gitee.com/atbulbs/template_json/raw/master/list.json'
+const spinner = ora('获取模板列表...').start()
+request(
+  {
+    uri: templateListJsonUrl,
+    timeout: 5000,
+  },
+  (err, res, body) => {
+    spinner.stop()
+    if (err) {
+      warn('获取模板列表失败')
+      warn(err)
+    }
+    if (res && res.statusCode === 200) {
+      info('获取模板列表成功')
+      const templateList = JSON.parse(body)
+      const choices = templateList.map(template => ({
+        name: `${ template.name }, ${ template.description }`,
+        value: template.name,
+      }))
+      inquirer
+        .prompt([
+          {
+            type:'list',
+            name:'templateName',
+            choices,
+            message:'Choose a template you want to build'
+          }
+        ])
+        .then(answer => {
+          const template = templateList.find(template => template.name === answer.templateName)
+          const templateUrl = template.url
+          const templateFramework = template.framework
+          inquirer
+            .prompt([
+              {
+                type: 'input',
+                name: 'appName',
+                message: 'The name of project',
+                default: `my_${ templateFramework }_app`,
+              },
+              {
+                type: 'input',
+                name: 'destination',
+                message: 'The destination of project',
+                default: process.cwd()
+              }
+            ])
+            .then(answer => {
+              const localPath = answer.destination
+              const destination = path.join(path.isAbsolute(localPath) ? localPath : path.join(process.cwd(), localPath), answer.appName)
+              if (exists(destination)) {
+                inquirer.prompt([
+                  {
+                    type:'confirm',
+                    name:'override',
+                    message:'The project exists. override it?',
+                  }
+                ]).then(_answer=>{
+                  if (_answer.override) {
+                    rm(destination)
+                    generateProject(destination, templateUrl, answer)
+                  }
+                })
+              } else {
+                generateProject(destination, templateUrl, answer)
+              }
+            })
+        })
+    }
+  }
+)
+
+function generateProject (destination, templateUrl, answer) {
+  const spinner = ora('生成模板...').start()
+  download(
+    templateUrl,
+    destination,
+    {
+      clone: true,
+    },
+    err => {
+      if (!err) {
+        Metalsmith(destination)
+        .metadata(answer)
+        .clean(false)
+        .source('.')
+        .destination(destination)
+        .use((files, metalsmith, done) => {
+          Object.keys(files).forEach(fileName => {
+            if (/\.(json|js|ts|jsx|tsx|vue)$/.test(fileName)) {
+              const fileContentsString = files[fileName].contents.toString()
+              files[fileName].contents = new Buffer.from(Handlebars.compile(fileContentsString)(answer))
+            }
+          })
+          done()
+        })
+        .build((err, files) => {
+          spinner.stop()
+          if (err) {
+            console.warn('err', err)
+            warn('生成模板失败')
+            warn(err)
+          } else {
+            info('模板生成完毕, happy hacking!🥳️')
+          }
+        })
+      } else {
+        warn('下载模板失败')
+        warn(err)
+      }
+    }
+  )
+}
