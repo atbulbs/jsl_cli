@@ -28,7 +28,7 @@ const buildTempalte: GenerateProject = async (templateUrl: string, appNameAndDes
         .destination(destination)
         .use((files, metalsmith, done) => {
           Object.keys(files).forEach((fileName: string) => {
-            if (!/\.(jpg|png|jpeg|gif|svg|mp3|mp4|atlas)$/.test(fileName)) {
+            if (/\.(json|js|ts|jsx|tsx|vue)$/.test(fileName)) {
               const fileContentsString: string = files[fileName].contents.toString()
               const content: Buffer = Buffer.from(handlebars.compile(fileContentsString)(appNameAndDestination))
               files[fileName].contents = content.toString()
