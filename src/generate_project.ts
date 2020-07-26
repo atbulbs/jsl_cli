@@ -1,23 +1,20 @@
+/**
+ * @description 构建生成项目
+ */
+import download from 'download-git-repo'
+import Metalsmith from 'metalsmith'
+import handlebars from 'handlebars'
+import ora from 'ora'
+import { existsSync as exists } from 'fs'
+import { sync as rm } from 'rimraf'
 import { warn, info } from './utils'
 import getUserIsOverride from './get_user_is_override'
-const download = require('download-git-repo')
-const Metalsmith = require('metalsmith')
-const handlebars = require('handlebars')
-const ora = require('ora')
-const exists = require('fs').existsSync
-const rm = require('rimraf').sync
 
-/**
- * @description 生成项目
- *
- */
 export default async function generateProject (templateUrl, appNameAndDestination) {
   const { destination } = appNameAndDestination
-  console.warn('destination', destination)
-  console.warn('appNameAndDestination', appNameAndDestination)
   if (exists(destination)) {
     if (await getUserIsOverride()) {
-      // rm(destination as string)
+      rm(destination)
       buildTempalte(templateUrl, appNameAndDestination)
     }
   } else {
@@ -26,9 +23,7 @@ export default async function generateProject (templateUrl, appNameAndDestinatio
 }
 
 function buildTempalte (templateUrl, appNameAndDestination) {
-  console.warn('templateUrl', templateUrl)
-  console.warn('appNameAndDestination', appNameAndDestination)
-  const { destination } = appNameAndDestination
+  const { destination, appName } = appNameAndDestination
   const spinner = ora('生成模板...').start()
   download(
     templateUrl,
@@ -60,7 +55,7 @@ function buildTempalte (templateUrl, appNameAndDestination) {
             warn('生成模板失败')
             warn(err)
           } else {
-            info('模板生成完毕, happy hacking!🥳️')
+            info(`模板生成完毕,cd ${ appName } && happy hacking!🥳️`)
           }
         })
       } else {

@@ -1,5 +1,7 @@
-const inquirer = require('inquirer')
-const prompt = inquirer.createPromptModule()
+/**
+ * @description 获取用户是否覆盖之前的项目
+ */
+import { prompt } from './utils'
 
 export default async function getUserIsOverride () {
   const answer = await prompt([

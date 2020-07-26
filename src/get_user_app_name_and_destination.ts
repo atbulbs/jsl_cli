@@ -1,5 +1,8 @@
-const inquirer = require('inquirer')
-const prompt = inquirer.createPromptModule()
+/**
+ * @description 获取用户自定义的项目名称和路径
+ */
+import path from 'path'
+import { prompt } from './utils'
 
 export default async function getUserAppNameAndDestination (templateList, templateFramework) {
   const answer = await prompt([
@@ -16,5 +19,7 @@ export default async function getUserAppNameAndDestination (templateList, templa
       default: process.cwd()
     }
   ])
-  return answer
+  const localPath = answer.destination
+  const destination = path.join(path.isAbsolute(localPath) ? localPath : path.join(process.cwd(), localPath), answer.appName)
+  return { ...answer, destination }
 }

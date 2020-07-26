@@ -1,12 +1,11 @@
-import { warn, info } from './utils'
-import { templateListJsonUrl } from './constants'
-const request = require('request')
-const ora = require('ora')
-const rpa = require('request-promise-any')
-
 /**
  * @description 获取线上的模板列表
  */
+import ora from 'ora'
+import rpa from 'request-promise-any'
+import { warn, info } from './utils'
+import { templateListJsonUrl } from './constants'
+
 export default async function getTemplateList () {
   const spinner = ora('获取模板列表...').start()
   const res = await rpa({
@@ -18,17 +17,6 @@ export default async function getTemplateList () {
     warn(err)
   })
   spinner.stop()
-  info('获取模板列表成功')
+  info('获取模板列表成功!')
   return JSON.parse(res)
-  // request(
-  //   {
-  //   },
-  //   (err, res, body) => {
-  //     spinner.stop()
-  //     if (res?.statusCode === 200) {
-  //       cb(JSON.parse(body))
-  //     } else {
-  //     }
-  //   }
-  // )
 }
