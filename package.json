@@ -4,7 +4,7 @@
   "module": "lib/create.es.js",
   "types": "lib/types/create.d.ts",
   "version": "0.0.5",
-  "description": "a jsl dev kit, for lib vue react phaser project",
+  "description": "a jsl dev kit, for lib, vue, react, phaser project",
   "repository": {
     "type": "git",
     "url": "https://github.com/atbulbs/jsl_cli.git"
