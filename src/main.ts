@@ -16,7 +16,7 @@ import {
   // 获取用户选择的模板
   const { templateUrl, templateFramework } = await getUserTemplateName(templateList)
   // 获取用户自定义项目名称和项目路径
-  const appNameAndDestination = await getUserAppNameAndDestination(templateList, templateFramework)
+  const appNameAndDestination: AppNameAndDestination = await getUserAppNameAndDestination(templateFramework)
   // 生成项目
   await generateProject(templateUrl, appNameAndDestination)
 })()

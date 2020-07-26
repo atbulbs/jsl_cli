@@ -4,7 +4,7 @@
 import path from 'path'
 import { prompt } from './utils'
 
-export default async function getUserAppNameAndDestination (templateList, templateFramework) {
+const getUserAppNameAndDestination: GetUserAppNameAndDestination = async (templateFramework: string): Promise<AppNameAndDestination> => {
   const answer = await prompt([
     {
       type: 'input',
@@ -21,5 +21,7 @@ export default async function getUserAppNameAndDestination (templateList, templa
   ])
   const localPath = answer.destination
   const destination = path.join(path.isAbsolute(localPath) ? localPath : path.join(process.cwd(), localPath), answer.appName)
-  return { ...answer, destination }
+  return { ...answer, destination } as AppNameAndDestination
 }
+
+export default getUserAppNameAndDestination

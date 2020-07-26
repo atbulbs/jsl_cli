@@ -3,7 +3,7 @@
  */
 import { prompt } from './utils'
 
-export default async function getUserTemplateName (templateList: Array<Template>) {
+const getUserTemplateUrlAndFramework: GetUserTemplateUrlAndFramework = async (templateList: Array<Template>): Promise<TemplateUrlAndFramework> => {
   const choices = templateList.map(template => ({
     name: `${ template.name }, ${ template.description }`,
     value: template.name,
@@ -17,7 +17,9 @@ export default async function getUserTemplateName (templateList: Array<Template>
     }
   ])
   const template: Template = templateList.find(template => template.name === answer.templateName)
-  const templateUrl = template.url
-  const templateFramework = template.framework
-  return { templateUrl, templateFramework }
+  const templateUrl: string = template.url
+  const templateFramework: Framework = template.framework
+  return { templateUrl, templateFramework } as TemplateUrlAndFramework
 }
+
+export default getUserTemplateUrlAndFramework

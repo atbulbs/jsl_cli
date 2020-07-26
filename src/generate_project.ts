@@ -10,21 +10,9 @@ import { sync as rm } from 'rimraf'
 import { warn, info } from './utils'
 import getUserIsOverride from './get_user_is_override'
 
-export default async function generateProject (templateUrl, appNameAndDestination) {
-  const { destination } = appNameAndDestination
-  if (exists(destination)) {
-    if (await getUserIsOverride()) {
-      rm(destination)
-      buildTempalte(templateUrl, appNameAndDestination)
-    }
-  } else {
-    buildTempalte(templateUrl, appNameAndDestination)
-  }
-}
-
-function buildTempalte (templateUrl, appNameAndDestination) {
+const buildTempalte: GenerateProject = (templateUrl: string, appNameAndDestination: AppNameAndDestination) => {
   const { destination, appName } = appNameAndDestination
-  const spinner = ora('生成模板...').start()
+  const spinner: ora.Ora = ora('生成模板...').start()
   download(
     templateUrl,
     destination,
@@ -39,11 +27,11 @@ function buildTempalte (templateUrl, appNameAndDestination) {
         .source('.')
         .destination(destination)
         .use((files, metalsmith, done) => {
-          Object.keys(files).forEach(fileName => {
+          Object.keys(files).forEach((fileName: string) => {
             if (!/\.(jpg|png|jpeg|gif|svg|mp3|mp4|atlas)$/.test(fileName)) {
-              const fileContentsString = files[fileName].contents.toString()
-              const Content = Buffer.from(handlebars.compile(fileContentsString)(appNameAndDestination))
-              files[fileName].contents = Content.toString()
+              const fileContentsString: string = files[fileName].contents.toString()
+              const content: Buffer = Buffer.from(handlebars.compile(fileContentsString)(appNameAndDestination))
+              files[fileName].contents = content.toString()
             }
           })
           done()
@@ -65,3 +53,17 @@ function buildTempalte (templateUrl, appNameAndDestination) {
     }
   )
 }
+
+const generateProject: GenerateProject = async (templateUrl: string, appNameAndDestination: AppNameAndDestination) => {
+  const { destination } = appNameAndDestination
+  if (exists(destination)) {
+    if (await getUserIsOverride()) {
+      rm(destination)
+      buildTempalte(templateUrl, appNameAndDestination)
+    }
+  } else {
+    buildTempalte(templateUrl, appNameAndDestination)
+  }
+}
+
+export default generateProject

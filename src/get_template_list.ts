@@ -6,8 +6,8 @@ import rpa from 'request-promise-any'
 import { warn, info } from './utils'
 import { templateListJsonUrl } from './constants'
 
-export default async function getTemplateList () {
-  const spinner = ora('获取模板列表...').start()
+const getTemplateList : GetTemplateList = async (): Promise<Array<Template>> => {
+  const spinner: ora.Ora = ora('获取模板列表...').start()
   const res = await rpa({
     uri: templateListJsonUrl,
     timeout: 5000,
@@ -18,5 +18,7 @@ export default async function getTemplateList () {
   })
   spinner.stop()
   info('获取模板列表成功!')
-  return JSON.parse(res)
+  return JSON.parse(res) as Array<Template>
 }
+
+export default getTemplateList

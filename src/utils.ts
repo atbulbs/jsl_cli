@@ -4,7 +4,7 @@
 import chalk from 'chalk'
 import inquirer from 'inquirer'
 
-export const warn = str => console.log(chalk.red(str))
-export const info = str => console.log(chalk.blue(str))
+export const warn: Function = (str: string) => console.log(chalk.red(str))
+export const info: Function = (str: string) => console.log(chalk.blue(str))
 
 export const prompt = inquirer.createPromptModule()

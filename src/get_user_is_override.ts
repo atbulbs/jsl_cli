@@ -3,13 +3,15 @@
  */
 import { prompt } from './utils'
 
-export default async function getUserIsOverride () {
+const getUserIsOverride: GetUserIsOverride = async (): Promise<boolean> => {
   const answer = await prompt([
     {
-      type:'confirm',
-      name:'override',
-      message:'The project exists. override it?',
+      type: 'confirm',
+      name: 'override',
+      message: 'The project exists. override it?',
     }
   ])
-  return answer.override
+  return answer.override as boolean
+
 }
+export default getUserIsOverride
