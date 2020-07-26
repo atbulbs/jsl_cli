@@ -5,7 +5,7 @@
 
 import {
   getTemplateList,
-  getUserTemplateName,
+  getUserTemplateUrlAndFramework,
   getUserAppNameAndDestination,
   generateProject,
 } from './helper_functions'
@@ -14,7 +14,7 @@ import {
   // 获取线上模板列表
   const templateList: Array<Template> = await getTemplateList()
   // 获取用户选择的模板
-  const { templateUrl, templateFramework } = await getUserTemplateName(templateList)
+  const { templateUrl, templateFramework } = await getUserTemplateUrlAndFramework(templateList)
   // 获取用户自定义项目名称和项目路径
   const appNameAndDestination: AppNameAndDestination = await getUserAppNameAndDestination(templateFramework)
   // 生成项目

@@ -22,7 +22,7 @@ declare type TemplateUrlAndFramework = {
 }
 
 interface GenerateProject {
-  (templateUrl: string, appNameAndDestination: AppNameAndDestination): void
+  (templateUrl: string, appNameAndDestination: AppNameAndDestination): Promise<any>
 }
 
 interface GetTemplateList {
@@ -39,4 +39,8 @@ interface GetUserIsOverride {
 
 interface GetUserTemplateUrlAndFramework {
   (templateList: Array<Template>): Promise<TemplateUrlAndFramework>
+}
+
+interface Log {
+  (str: string): void
 }

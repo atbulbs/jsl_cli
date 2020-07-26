@@ -10,7 +10,7 @@ import { sync as rm } from 'rimraf'
 import { warn, info } from './utils'
 import getUserIsOverride from './get_user_is_override'
 
-const buildTempalte: GenerateProject = (templateUrl: string, appNameAndDestination: AppNameAndDestination) => {
+const buildTempalte: GenerateProject = async (templateUrl: string, appNameAndDestination: AppNameAndDestination): Promise<any> => {
   const { destination, appName } = appNameAndDestination
   const spinner: ora.Ora = ora('生成模板...').start()
   download(
@@ -54,7 +54,7 @@ const buildTempalte: GenerateProject = (templateUrl: string, appNameAndDestinati
   )
 }
 
-const generateProject: GenerateProject = async (templateUrl: string, appNameAndDestination: AppNameAndDestination) => {
+const generateProject: GenerateProject = async (templateUrl: string, appNameAndDestination: AppNameAndDestination): Promise<any> => {
   const { destination } = appNameAndDestination
   if (exists(destination)) {
     if (await getUserIsOverride()) {
