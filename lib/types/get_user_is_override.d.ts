@@ -1,1 +1,2 @@
-export default function getUserIsOverride(): Promise<any>;
+declare const getUserIsOverride: GetUserIsOverride;
+export default getUserIsOverride;

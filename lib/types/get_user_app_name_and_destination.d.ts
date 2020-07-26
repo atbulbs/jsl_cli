@@ -1,1 +1,2 @@
-export default function getUserAppNameAndDestination(templateList: any, templateFramework: any): Promise<any>;
+declare const getUserAppNameAndDestination: GetUserAppNameAndDestination;
+export default getUserAppNameAndDestination;

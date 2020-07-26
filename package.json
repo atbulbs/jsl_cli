@@ -87,6 +87,8 @@
   "devDependencies": {
     "@types/node": "^10.17.28",
     "request-promise-any": "^1.0.9",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
     "sync-request": "^6.0.0"
   }
 }

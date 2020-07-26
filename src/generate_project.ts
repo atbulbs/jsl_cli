@@ -6,7 +6,7 @@ import Metalsmith from 'metalsmith'
 import handlebars from 'handlebars'
 import ora from 'ora'
 import { existsSync as exists } from 'fs'
-import { sync as rm } from 'rimraf'
+import rimraf from 'rimraf'
 import { warn, info } from './utils'
 import getUserIsOverride from './get_user_is_override'
 
@@ -58,7 +58,7 @@ const generateProject: GenerateProject = async (templateUrl: string, appNameAndD
   const { destination } = appNameAndDestination
   if (exists(destination)) {
     if (await getUserIsOverride()) {
-      rm(destination)
+      rimraf.sync(destination)
       buildTempalte(templateUrl, appNameAndDestination)
     }
   } else {
