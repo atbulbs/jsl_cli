@@ -3,7 +3,7 @@
   "main": "lib/create.umd.js",
   "module": "lib/create.es.js",
   "types": "lib/types/create.d.ts",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "a jsl dev kit, for lib, vue, react, phaser project",
   "repository": {
     "type": "git",
@@ -16,7 +16,7 @@
     "jsl-create": "bin/create"
   },
   "scripts": {
-    "build": "npm run rollup-build && npm version patch && npm publish",
+    "build": "npm run rollup-build && npm publish",
     "rollup-build": "cross-env NODE_ENV=production rollup -c ./rollup.config.ts",
     "start": "cross-env NODE_ENV=development rollup -c ./rollup.config.ts --watch"
   },
