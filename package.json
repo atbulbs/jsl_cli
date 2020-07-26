@@ -9,6 +9,9 @@
     "type": "git",
     "url": "https://github.com/atbulbs/jsl_cli.git"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "author": "atbulbs@gmail.com",
   "license": "MIT",
   "bin": {
