@@ -3,12 +3,16 @@
   "main": "lib/create.umd.js",
   "module": "lib/create.es.js",
   "types": "lib/types/create.d.ts",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "a jsl dev kit, for lib, vue, react, phaser project",
   "repository": {
     "type": "git",
     "url": "https://github.com/atbulbs/jsl_cli.git"
   },
+  "files": [
+    "bin",
+    "lib"
+  ],
   "publishConfig": {
     "access": "public"
   },
@@ -82,10 +86,6 @@
     "semver": "^5.5.0",
     "user-home": "^2.0.0"
   },
-  "files": [
-    "bin",
-    "lib"
-  ],
   "devDependencies": {
     "@types/node": "^10.17.28",
     "request-promise-any": "^1.0.9",
