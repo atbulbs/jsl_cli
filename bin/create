@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+// require('../lib/create.umd')
+
 const path=require('path')
 const exists = require('fs').existsSync
 const inquirer = require('inquirer')
