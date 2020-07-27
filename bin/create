@@ -118,7 +118,7 @@ function generateProject (destination, templateUrl, answer) {
             warn('生成模板失败')
             warn(err)
           } else {
-            info('模板生成完毕, happy hacking!🥳️')
+            info(`模板生成完毕,cd ${ appName } && happy hacking!🥳️`)
           }
         })
       } else {
