@@ -8,7 +8,7 @@ import {
   getUserAppNameAndDestination,
   generateProject,
 } from './helper_functions'
-import { warn, info } from './utils'
+import { warn } from './utils'
 
 (async () => {
   try {
@@ -21,8 +21,6 @@ import { warn, info } from './utils'
     // 生成项目
     generateProject(templateUrl, appNameAndDestination)
   } catch (e) {
-    warn(e)
-  } finally {
-    info(`项目生成完毕,happy hacking!🥳️`)
+    warn(`构建失败: ${ e }`)
   }
 })()
